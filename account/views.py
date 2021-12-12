@@ -106,10 +106,10 @@ def employee(request):
 
 def add_employee(request):
     if request.method == 'POST':
-        name = request.POST('name')
-        time = request.POST('time')
-        plate = request.POST('plate')
-        choice = request.POST('choice')
+        name = request.POST.get('name')
+        time = request.POST.get('time')
+        plate = request.POST.get('plate')
+        choice = request.POST.get('choice')
 
         employee = Employee(
             name=name,
@@ -135,10 +135,10 @@ def remove_employee(request, employee_id):
 def update_employee(request, pk):
     emp = Employee.objects.get(id=pk)
     if request.method == 'POST':
-        emp.name = request.POST.get('name')
-        emp.actual_entry_time = request.POST.get('time')
-        emp.number_plate = request.POST.get('plate')
-        emp.choice_category = request.POST.get('choice')
+        emp.name = request.POST['name']
+        emp.actual_entry_time = request.POST['time']
+        emp.number_plate = request.POST['plate']
+        emp.choice_category = request.POST['choice']
         employee = Employee(
             name=emp.name,
             actual_entry_time=emp.actual_entry_time,
@@ -169,10 +169,10 @@ def activate(request, uidb64, token):
         return redirect('register')
 
 
-def forgotPassword(request):
+def forgot_password(request):
     if request.method == 'POST':
 
-        email = request.POST('email')
+        email = request.POST['email']
         if Account.objects.filter(email=email).exists():
             user = Account.objects.get(email__iexact=email)
 
@@ -194,7 +194,7 @@ def forgotPassword(request):
 
         else:
             messages.error(request, 'Account Does not exist')
-            return redirect('forgotPassword')
+            return redirect('forgot_password')
     return render(request, 'account/forgot_password.html')
 
 
