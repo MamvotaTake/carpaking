@@ -1,0 +1,88 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+{%load static %}
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="container mb-5">
+                <h1 class="text-center text-muted">Fregit Office Center</h1>
+            </div>
+            <div class="container">
+
+                <div class="row flex-lg-nowrap">
+                    <div class="col-12 col-lg-auto mb-3" style="width:100%;">
+                        <div class="col">
+                            <div class="e-tabs mb-3 px-3">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a class="nav-link active"><span
+                                            class="text-info">WELCOME</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% include 'includes/alerts.html'%}
+                        <div class="container text-center mx-auto" style="width: 200px;">
+
+                            <form action="{% url 'employee' %}" method="POST" class="login100-form validate-form">
+                                {% csrf_token %}
+                                <span class="login100-form-title">
+                                    <br>
+                                    Reserve Place
+                                </span>
+                                <div class="wrap-input100 validate-input" data-validate="Name is required">
+                                    {{form.name}}
+                                    <!-- <span class="focus-input100"></span> -->
+                                    <span class="symbol-input100">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                                </div>
+
+                                <div class="wrap-input100 validate-input" data-validate="Valid time is required">
+                                    {{form.actual_entry_time}}
+                                    <!--                                     <span class="focus-input100"></span>-->
+                                    <span class="symbol-input100">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                </span>
+                                </div>
+
+
+                                <div class="wrap-input100 validate-input" data-validate="Number plate is required">
+                                    {{form.number_plate}}
+                                    <!-- <span class="focus-input100"></span> -->
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-car" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                <div class="wrap-input100 validate-input" data-validate="Valid time is required">
+                                    {{form.choice_category}}
+                                    <!--                                     <span class="focus-input100"></span>-->
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-map" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                <div class="container-login100-form-btn">
+                                    {% if employee_count >= 2 %}
+                                    <button class="btn btn-danger btn-block p-3" style="border-radius:25px;" disabled>
+                                        Sorry! No Parking Space
+                                    </button>
+                                    {%else%}
+                                    <button class="login100-form-btn btn-block p-3" style="border-radius:25px;">
+                                        Submit
+                                    </button>
+                                    {%endif%}
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {%endblock%}

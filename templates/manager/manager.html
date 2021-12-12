@@ -1,0 +1,293 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+{%load static %}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="container">
+                <h1 class="text-center text-muted">Fregit Office Center</h1>
+            </div>
+            <div class="container">
+                <div class="row flex-lg-nowrap">
+                    <div class="col-12 col-lg-auto mb-3" style="width:100%;">
+                        <div class="col">
+                            <div class="e-tabs mb-3 px-3">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a class="nav-link active" href="#">Employees</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="row flex-lg-nowrap">
+                                <div class="col mb-3">
+                                    <div class="e-panel card">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <h6 class="mr-2"><span>Employees</span><small class="px-1">Be a good
+                                                    leader</small></h6>
+                                            </div>
+                                            <div class="e-table">
+                                                <div class="table-responsive table-lg mt-3">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="align-top">
+                                                                <div
+                                                                        class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
+                                                                    <input type="checkbox"
+                                                                           class="custom-control-input" id="all-items">
+                                                                    <label class="custom-control-label"
+                                                                           for="all-items"></label>
+                                                                </div>
+                                                            </th>
+                                                            <th>Name</th>
+                                                            <th class="max-width">Entry Time</th>
+                                                            <th class="sortable">Number Plate</th>
+                                                            <th class="sortable">Parking Space</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for emp in employee %}
+                                                        <tr>
+                                                            <td class="align-middle">
+                                                                <div
+                                                                        class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+                                                                    <input type="checkbox"
+                                                                           class="custom-control-input" id="item-8">
+                                                                    <label class="custom-control-label"
+                                                                           for="item-8"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                {{emp.name}}
+                                                            </td>
+                                                            <td class="text-nowrap align-middle">
+                                                                {{emp.actual_entry_time}}
+                                                            </td>
+                                                            <td class="text-nowrap align-middle text-center">
+                                                                <span>{{emp.number_plate}}</span>
+                                                            </td>
+                                                            <td class="text-nowrap align-middle text-center">
+                                                                <span>{{emp.choice_category}}</span>
+                                                            </td>
+                                                            <td class="text-center align-middle">
+                                                                <div class="btn-group align-top">
+                                                                    <a href="{%url 'update_employee' emp.id %}"
+                                                                            class="btn btn-sm btn-info muted"
+                                                                            type="button" data-toggle="modal"
+                                                                            data-target="#edit-form-modal-{{forloop.counter}}">
+                                                                        Edit
+                                                                    </a>
+                                                                    <a href="{%url 'remove_employee' emp.id%}"
+                                                                       class="btn btn-sm btn-outline-none muted  bg-danger text-white"
+                                                                       type="button"><i class="fa fa-trash"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        {%endfor%}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="text-center px-xl-3">
+                                                {% if employee_count >= 2 %}
+                                                <button class="btn btn-danger btn-block p-3" type="button"
+                                                        data-toggle="modal" data-target="#add-form-modal" disabled>Add
+                                                </button>
+                                                {%else%}
+                                                <button class="btn btn-success btn-block p-3" type="button"
+                                                        data-toggle="modal" data-target="#add-form-modal">Add
+                                                </button>
+                                                {%endif%}
+                                            </div>
+                                            <hr class="my-3">
+                                            <div class="e-navlist e-navlist--active-bold">
+                                                <ul class="nav">
+                                                    <li class="nav-item active"><a href=""
+                                                                                   class="nav-link"><span>All</span>&nbsp;<small>/&nbsp;{{employee_count}}</small></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <hr class="my-3">
+                                            <div class="e-navlist e-navlist--active-bold">
+                                                <div class="login100-pic js-tilt" data-tilt>
+                                                    <img src="{% static 'images/parking-lot.png'%}" style="width:150px;"  alt="IMG">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edit Form Modal -->
+                            {% for emp in employee %}
+                            <div class="modal fade" role="dialog" tabindex="-1"
+                                 id="edit-form-modal-{{forloop.counter}}">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Changing Reservation time</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span
+                                                    aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="py-1">
+                                                <div class="container text-center mx-auto" style="width: 200px;">
+                                                    <form action ="{% url 'update_employee' emp.id %}" method="POST"
+                                                          class="login100-form validate-form">
+                                                        {% csrf_token %}
+                                                        <span class="login100-form-title">
+                                                            <br>
+                                                            Reserve Place
+                                                        </span>
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <input class="input100" type="text" name="name"
+                                                                   placeholder="Name" value="{{emp.name}}">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <input class="input100" type="text" name="time"
+                                                                   placeholder="00:00" value="{{emp.actual_entry_time}}">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="number plate is required">
+                                                            <input class="input100" type="text" name="plate"
+                                                                   placeholder="Number plate" value="{{emp.number_plate}}">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-car" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <select class="input100" name="choice">
+                                                                <option value="A">A</option>
+                                                                <option value="B">B</option>
+                                                            </select>
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-map" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="container-login100-form-btn">
+                                                            <button class="login100-form-btn">
+                                                                Save
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor%}
+                            <!--Add Employee-->
+                            <div class="modal fade" role="dialog" tabindex="-1" id="add-form-modal">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Adding Employee</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span
+                                                    aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="py-1">
+                                                <div class="container text-center mx-auto" style="width: 200px;">
+                                                    <form action="{% url 'add_employee' %}" method="POST"
+                                                          class="login100-form validate-form">
+                                                        {% csrf_token %}
+                                                        <span class="login100-form-title">
+                                                            <br>
+                                                            Reserve Place
+                                                        </span>
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <input class="input100" type="text" name="name"
+                                                                   placeholder="Name">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <input class="input100" type="text" name="time"
+                                                                   placeholder="00:00">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="number plate is required">
+                                                            <input class="input100" type="text" name="plate"
+                                                                   placeholder="Number plate">
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-car" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="wrap-input100 validate-input"
+                                                             data-validate="Valid time is required">
+                                                            <select class="input100" name="choice">
+                                                                <option value="A">A</option>
+                                                                <option value="B">B</option>
+                                                            </select>
+                                                            <!-- <span class="focus-input100"></span> -->
+                                                            <span class="symbol-input100">
+                                                                <i class="fa fa-map" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="container-login100-form-btn">
+                                                            <button class="login100-form-btn">
+                                                                Add
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {%endblock%}
