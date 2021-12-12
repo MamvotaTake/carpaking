@@ -28,7 +28,8 @@ SECRET_KEY = 'ghz443!brmimzfc229e(dp-z2+pik@j*m8k@#q=3e*4*$!j6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["pure-peak-90477.herokuapp.com", 'carparking.com', 'www.carparking.com', '198.211.99.20', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ["pure-peak-90477.herokuapp.com", "guarded-chamber-06402.herokuapp.com", 'carparking.com',
+                 'www.carparking.com', '198.211.99.20', 'localhost', '127.0.0.1']
 
 # Application definition
 
