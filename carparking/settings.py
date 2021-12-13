@@ -91,7 +91,7 @@ AUTH_USER_MODEL = 'account.Account'
 #     }
 # }
 
-DATABASES = {'default': dj_database_url.config(default='postgres://postgres:2Cotx123@localhost/carpark_db')}
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:2Cotx123@localhost/carparking__db')}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
