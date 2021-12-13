@@ -148,7 +148,7 @@ def update_employee(request, pk):
         employee.save()
         return redirect('manager')
     else:
-        messages.error(request, 'User not updated please try again')
+        messages.error(request, 'User is not updated please try again')
     return render(request, 'manager/manager.html')
 
 
@@ -190,7 +190,7 @@ def forgot_password(request):
             send_email.send()
 
             messages.success(request, 'Password reset email has been sent to your email address.')
-            return redirect('login')
+            return redirect('resetPassword')
 
         else:
             messages.error(request, 'Account Does not exist')

@@ -84,7 +84,7 @@ AUTH_USER_MODEL = 'account.Account'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'carpark_db',
+#         'NAME': 'carpark__db',
 #         'USER': 'postgres',
 #         'PASSWORD': '2Cotx123',
 #         'HOST': 'localhost',
