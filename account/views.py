@@ -226,7 +226,7 @@ def reset_password(request):
             messages.success(request, 'Password reset successfully')
             return redirect('login')
         else:
-            messages.error(request, 'Password do not match')
+            messages.error(request, 'Passwords do not match')
             return redirect('reset_password')
     else:
         return render(request, 'account/reset_password.html')
